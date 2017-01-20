@@ -1,0 +1,270 @@
+﻿@model IEnumerable<CotizadorKober.Models.Users>
+
+@{
+    ViewBag.Title = "Administración de Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript">
+
+    function prepareWindow(editType, entityID) {
+        if (editType == 1) {
+            $('#btnModalOK').val("Agregar");
+            $(".modal-title").html("Agregar Usuario");
+            $('#txtUserName').prop('readonly', false);
+            $("#txtUserName").val("");
+            $("#txtEmail").val("");
+            $("#txtPassword").val("");
+            $("#txtFirstName").val("");
+            $("#txtLastName").val("");
+            $("#ddlRoleID").val("2");
+            $("#txtLista").val("")
+        } else if (editType == 2) {
+            $('#btnModalOK').val("Editar");
+            $(".modal-title").html("Editar Usuario");
+            $('#txtUserName').prop('readonly', true);
+            $("#txtUserName").val($("#dataUserName_" + entityID).html());
+            $("#txtEmail").val($("#dataEMail_" + entityID).html());
+            $("#txtPassword").val("");
+            $("#txtFirstName").val($("#dataFirstName_" + entityID).html());
+            $("#txtLastName").val($("#dataLastName_" + entityID).html());
+            $("#ddlRoleID").val($("#dataRoleId_" + entityID).html());
+            $("#txtLista").val($("#dataLista_" + entityID).html());
+        }
+    }
+
+    function deleteWindow(entityID) {
+        $('#btnDeleteOK').val(entityID);
+    }
+
+    $(document).ready(function () {
+        $("#btnModalOK").click(function () {
+            if ($("#txtUserName").val().trim() == "") {
+                $("#addMsg").html("Es necesario indicar el Usuario");
+                return;
+            } else if ($("#txtEmail").val().trim() == "") {
+                $("#addMsg").html("Es necesario indicar el E-Mail");
+                return;
+            }
+            var editType = $('#btnModalOK').val();
+            if (editType == "Agregar") {
+                if ($("#txtPassword").val().trim() == "") {
+                    $("#addMsg").html("Es necesario indicar el Password");
+                    return;
+                }
+            }
+            var values = $("#txtUserName").val() + "||" +
+                         $("#txtEmail").val() + "||" +
+                         $("#txtPassword").val() + "||" +
+                         $("#txtFirstName").val() + "||" +
+                         $("#txtLastName").val() + "||" +
+                         $("#ddlRoleID").val() + "||" +
+                         $("#txtLista").val();
+            if (editType == "Agregar") {
+                $.post("/User/Add",
+                    {
+                        data: values
+                    }, function (result) {
+                        if (result != "OK") {
+                            $("#addMsg").html(result);
+                        } else {
+                            location.reload();
+                        }
+                    });
+            } else if (editType == "Editar") {
+                $.post("/User/Edit",
+                    {
+                        data: values
+                    }, function (result) {
+                        if (result != "OK") {
+                            $("#addMsg").html(result);
+                        } else {
+                            location.reload();
+                        }
+                    });
+            }
+        });
+
+        $("#btnDeleteOK").click(function () {
+            var entityID = $('#btnDeleteOK').val();
+            $.post("/User/Delete",
+                {
+                    data: entityID
+                }, function (result) {
+                    if (result != "OK") {
+                        $("#deleteMsg").html(result);
+                    } else {
+                        location.reload();
+                    }
+                });
+        });
+    });
+</script>
+
+<h2 class="catalogTitle">Administración de Usuarios</h2>
+
+<p>
+    @Html.ActionLink("Enviar Correo", "SendMail")
+    @if (ViewBag.CanCreate) {
+        <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#modalAdd" onclick="prepareWindow(1,0);">Nuevo Usuario</button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-info btn-lg button" disabled="disabled">Nuevo Usuario</button>
+    }
+</p>
+<table class="dataTable">
+    <tr>
+        <th class="headerColumnID">
+            ID
+        </th>
+        <th class="headerColumn">
+            Usuario
+        </th>
+        <th class="headerColumn">
+            E-Mail
+        </th>
+        <th class="headerColumn">
+            Nombre(s)
+        </th>
+        <th class="headerColumn">
+            Apellido(s)
+        </th>
+        <th class="headerColumn" style="display:none;">
+            RoleID
+        </th>
+        <th class="headerColumn">
+            Lista
+        </th>
+        <th class="headerColumnCommands"></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td class="dataColumnID">
+                <span id="dataUserId_@item.UserId">@item.UserId</span>
+            </td>
+            <td class="dataColumn" style="width:150px;">
+                <span id="dataUserName_@item.UserId">@item.UserName</span>
+            </td>
+            <td class="dataColumn" style="width:150px;">
+                <span id="dataEMail_@item.UserId">@item.Email</span>
+            </td>
+            <td class="dataColumn" style="width:150px;">
+                <span id="dataFirstName_@item.UserId">@item.FirstName</span>
+            </td>
+            <td class="dataColumn" style="width:150px;">
+                <span id="dataLastName_@item.UserId">@item.LastName</span>
+            </td>
+            <td class="dataColumn" style="display:none;">
+                <span id="dataRoleId_@item.UserId">@item.RoleID</span>
+            </td>
+            <td class="dataColumn" style="display:none;">
+                <span id="dataLista_@item.UserId">@item.Lista</span>
+            </td>
+            <td class="dataColumnCommands">
+                @if (ViewBag.CanUpdate) {
+                    <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#modalAdd" onclick="prepareWindow(2,@item.UserId)">Editar</button>
+                }
+                @if (ViewBag.CanDelete) {
+                    <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#modalDelete" onclick="deleteWindow(@item.UserId);">Eliminar</button>
+                }
+                @*@Html.ActionLink("Editar", "Edit", new { id=item.UserId }, new { @class = "commandButton" }) |*@
+                @*@Html.ActionLink("Eliminar", "Delete", new { id = item.UserId }, new { @class = "commandButton" })*@
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="container">
+    <!-- Add Modal -->
+    <div class="modal fade" id="modalAdd" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Usuario</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="addMsg"></div>
+                    <table>
+                        <tr>
+                            <td>Usuario</td>
+                            <td>
+                                @Html.TextBox("txtUserName")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>E-Mail</td>
+                            <td>
+                                @Html.TextBox("txtEmail")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>
+                                @Html.Password("txtPassword")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nombre</td>
+                            <td>
+                                @Html.TextBox("txtFirstName")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Apellido</td>
+                            <td>
+                                @Html.TextBox("txtLastName")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Rol de Usuario</td>
+                            <td>
+                                @Html.DropDownList("ddlRoleID", (SelectList)ViewBag.RoleSelectList)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Lista</td>
+                            <td>
+                                @Html.TextBox("txtLista")
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default button OKButton" id="btnModalOK">Aceptar</button>
+                    <button type="button" class="btn btn-default button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <!-- Add Modal -->
+    <div class="modal fade" id="modalDelete" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar Usuario</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Esta seguro de eliminar el Usuario?
+                    <div id="deleteMsg"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default button" id="btnDeleteOK">Aceptar</button>
+                    <button type="button" class="btn btn-default button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

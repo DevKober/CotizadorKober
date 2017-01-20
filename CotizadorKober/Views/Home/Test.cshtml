@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Test";
+}
+
+<script src="~/Content/jquery-1.11.2.js"></script>
+<script src="~/Content/jquery-ui.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="~/Content/blueprint/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="~/Content/blueprint/print.css" type="text/css" media="print">
+<!--[if lt IE 8]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+
+
+<link href="~/Content/mk.css" rel="stylesheet" />
+
+<!-- Teclado HTML -->
+<link rel="stylesheet" href="~/Content/Keyboard/jqkeyboard.css">
+<script src="~/Content/Keyboard/jqkeyboard-min.js"></script>
+
+<div id="espaciador" style="margin:50px;"></div>
+
+<div style="width:300px; float:left; margin-left:2px;">
+    <input id="mail" type="text" class="form-control" placeholder="Escriba su dirección de email..." aria-describedby="basic-addon1">
+</div>
+
+<button id="btnEnviar" style="margin-left:2px;" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Enviar por email</button>
+
+<div id="divConfirmacion" class="divGenericoCentrado" style="height:100px; width:100%; border:solid 1px; border-radius:3px; border-color:gray; background-color:limegreen;">
+    <div class="divGenericoCentrado">
+        <h3>Se ha enviado un email con su selección de productos</h3>
+        <div class="divGenericoCentrado">
+            <button id="btnBck" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Regresar</button>
+        </div>
+    </div>
+</div>
+
+<div id="divTabComp" style="overflow:auto;">
+    <div id="container" onclick="return false;"></div>
+</div>
+
+<button id="btnInicio" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;">Ir al inicio</button>
+<button id="btnAnterior" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;">Anterior</button>
+
+<script>   
+
+    var mailContent = "";
+
+    var etiquetaPrecio = "";
+
+    var cont = 0;
+
+    for (var i = 0, len = 11; i < len; i++) {
+
+        var Clave = "Eaeaeaea";
+        var Marca = "Eaeaeaeaea";
+        var Nombre = "Eaeaeaeae";
+        var Precio = 540.25;
+        var Material = "-----------------";
+        var Calibre = 0;
+        var Serie = "---";
+        var Acabado = "-----------------";
+        var ProfundidadTina1 = 0;
+        var ProfundidadTina2 = 0;
+        var ProfundidadTina3 = 0;
+
+
+        if (Precio <= 0) {
+            etiquetaPrecio = "Consulte precio con su asesor.";
+        }
+        else {
+            etiquetaPrecio = "$" + Precio * 1.16;
+        }
+
+        $("#divTabComp").append("<div class='resItem' style='float:left; width:32%;'>" +
+            "<div style='style='background-color:lightblue;'>" +
+              "<img src='http://148.244.194.94:8086/kober/art/" + Clave + ".jpg' />" +
+                "<div style='float:left; margin:2px; background-color:lightgray; border: 1px solid; border-color:black;'><p>" + Marca + "</p>" +
+                    "<div style='margin-left:5px;'>" + Clave + "</div>" +
+                    "<div style='margin-left:5px;'>" + Nombre + "</div>" +
+                    "<div style='margin-left:5px;'>Material: " + Material + "</div>" +
+                    "<div style='margin-left:5px;'>Serie: " + Serie + "</div>" +
+                    "<div style='margin-left:5px;'>Acabado: " + Acabado + "</div>" +
+                    "<div style='margin-left:5px;'>Calibre: " + Calibre + "</div>" +
+                    "<div style='margin-left:5px;'>Profundidad de tina 1: " + ProfundidadTina1 + "</div>" +
+                    "<div style='margin-left:5px;'>Profundidad de tina 2: " + ProfundidadTina2 + "</div>" +
+                    "<div style='margin-left:5px;'>Profundidad de tina 3: " + ProfundidadTina3 + "</div>" +
+                    "Cambio de precios sin previo aviso. Los precios pueden reflejar cambios de acuerdo al tipo de cambio diario." +
+                "<h4>" + etiquetaPrecio + "</h4></div>" +
+
+                "</div>");
+        if (cont == 2)
+        {
+            $("#divTabComp").append("</div>")
+            cont = 0;
+        }
+        else
+        {
+            cont += 1;
+        }
+        
+
+        mailContent += "<div>" +
+            //"<div><img src='http://148.244.194.94:8086/kober/art/" + result[i].Clave + ".jpg' /></div>" +
+            "<div><img src='http://portalinnovika.com/Images/kober/art/" + Clave + ".jpg' /></div>" +
+            "<div>" +
+                "<div>" +
+                    "<div><p>" + Marca + "</p>" +
+                        "<div>" + Nombre + "</div>" +
+                        "<div>Material: " + Material + "</div>" +
+                        "<div>Serie: " + Serie + "</div>" +
+                        "<div>Acabado: " + Acabado + "</div>" +
+                        "<div>Calibre: " + Calibre + "</div>" +
+                        "<div>Profundidad de tina 1: " + ProfundidadTina1 + "</div>" +
+                        "<div>Profundidad de tina 2: " + ProfundidadTina2 + "</div>" +
+                        "<div>Profundidad de tina 3: " + ProfundidadTina3 + "</div>" +
+                        "<h4>" + etiquetaPrecio + "</h4>" +
+                        "Cambio de precios sin previo aviso. Los precios pueden reflejar cambios de acuerdo al tipo de cambio diario. <br />" +
+                    "</div>" +
+                "</div>" +
+            "</div>" +
+
+            "</div>";
+    };
+
+</script>

@@ -1,0 +1,118 @@
+﻿body {
+   /*background-color: rgb(0,57,111);
+    color: white;*/ /*color original*/
+   background-color: lightgrey; /*color v2*/
+   font-family: 'Noto Sans', sans-serif; /*font v2*/
+}
+
+.divGlobalCentrado {
+    margin: auto;
+    /*width: 800px;*/
+    width: 100%;
+    /*border:3px solid #8AC007;*/
+    padding: 2px;
+    overflow: auto;
+    font-family: 'Noto Sans', sans-serif; /*font v2*/
+}
+
+.divGenericoCentrado {
+    display: table;
+    margin: 0 auto;
+    font-family: 'Noto Sans', sans-serif; /*font v2*/
+}
+
+.divLoginBox {
+    padding: 10px;
+    background-color: lightgray;
+    width: 300px;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.msgLoginFailMain {
+    font-size: 14px;
+    color: red;
+}
+
+.msgLoginFail {
+    font-size: 12px;
+    color: red;
+}
+
+.lblPrecio {
+    color: deepskyblue;
+    font-size: 18px;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.lblMarca {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.lblModelo {
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.lblDescripcion {
+    font-size:12px;
+    font-weight: bold;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.lblPrecioVar {
+    font-size:10px;
+    font-weight: bold;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.pMk {
+    /*font-family: Arial;*/
+    font-family: 'Noto Sans', sans-serif; /*font v2*/
+    /*color: white;*/
+}
+
+.divResultWrapper {
+  margin-left: 200px;
+  margin-right: 100px;
+}
+.divResultContent {
+  float: right;
+  width: 100%;
+}
+.divResultSidebar {
+  float: left;
+  width: 200px;
+  /*margin-left: -200px;*/
+}
+.divResultCleared {
+  clear: both;
+}
+
+.resItem {
+    border: solid;
+    border-width: 2px;
+    border-color: lightgray;
+    margin: 4px;    
+    padding: 4px;
+    float: left;
+    width: 32%;
+    height: 350px;
+    overflow: auto;
+    border-radius: 3px;
+}
+
+.resItemSngl {
+    border: solid;
+    border-width: 2px;
+    border-color: lightgray;
+    margin: 3px;    
+    padding: 3px;
+    float: left;
+    width: 98%;
+    height: 490px;
+    overflow: auto;
+    border-radius: 3px;
+}

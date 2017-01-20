@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UsersModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="UsersModelStoreContainer">
+    <EntitySet Name="Roles" EntityType="UsersModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="UsersModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VPermission" EntityType="UsersModel.Store.VPermission" store:Type="Views" store:Schema="dbo" store:Name="VPermission">
+      <DefiningQuery>SELECT 
+      [VPermission].[UserName] AS [UserName], 
+      [VPermission].[RoleName] AS [RoleName], 
+      [VPermission].[PermissionKey] AS [PermissionKey], 
+      [VPermission].[CreateOpt] AS [CreateOpt], 
+      [VPermission].[ReadOpt] AS [ReadOpt], 
+      [VPermission].[UpdateOpt] AS [UpdateOpt], 
+      [VPermission].[DeleteOpt] AS [DeleteOpt], 
+      [VPermission].[ExecuteOpt] AS [ExecuteOpt], 
+      [VPermission].[PermissionName] AS [PermissionName]
+      FROM [dbo].[VPermission] AS [VPermission]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="Lista" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'CK.dbo.VPermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="VPermission">
+    <Key>
+      <PropertyRef Name="CreateOpt" />
+      <PropertyRef Name="ReadOpt" />
+      <PropertyRef Name="UpdateOpt" />
+      <PropertyRef Name="DeleteOpt" />
+      <PropertyRef Name="ExecuteOpt" />
+    </Key>
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="RoleName" Type="varchar" MaxLength="100" />
+    <Property Name="PermissionKey" Type="varchar" MaxLength="50" />
+    <Property Name="CreateOpt" Type="bit" Nullable="false" />
+    <Property Name="ReadOpt" Type="bit" Nullable="false" />
+    <Property Name="UpdateOpt" Type="bit" Nullable="false" />
+    <Property Name="DeleteOpt" Type="bit" Nullable="false" />
+    <Property Name="ExecuteOpt" Type="bit" Nullable="false" />
+    <Property Name="PermissionName" Type="varchar" MaxLength="200" />
+  </EntityType>
+</Schema>

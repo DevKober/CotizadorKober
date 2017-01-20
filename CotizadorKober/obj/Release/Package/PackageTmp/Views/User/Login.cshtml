@@ -1,0 +1,79 @@
+﻿@model CotizadorKober.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/jquery-1.11.2.js"></script>
+<script src="~/Content/jquery-ui.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->    
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+@*<link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">  *@  
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<link href="~/Content/mk.css" rel="stylesheet" />
+
+<!-- Teclado HTML -->
+<link rel="stylesheet" href="~/Content/Keyboard/jqkeyboard.css">
+<script src="~/Content/Keyboard/jqkeyboard-min.js"></script>
+
+<div style="margin-bottom:100px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="divGenericoCentrado msgLoginFailMain">@Html.ValidationSummary(true, "Login fallido, verificar los datos.")</div>
+
+    <div id="frm" class="divGenericoCentrado divLoginBox">
+        <fieldset>
+            <div class="divGenericoCentrado"><h3>Acceso al Sistema</h3></div>
+            <div class="divGenericoCentrado">
+                <div style="text-align:left;">@Html.LabelFor(u => u.UserName) </div>
+                <div style="color:black;">
+                    @Html.TextBoxFor(u => u.UserName)
+                    <div class="msgLoginFail">@Html.ValidationMessageFor(u => u.UserName)</div>
+                </div>
+            </div>
+
+            <div class="divGenericoCentrado" style="height:15px;"></div>
+
+            <div class="divGenericoCentrado">
+                <div style="text-align:left ;">@Html.LabelFor(u => u.Password) </div>
+                <div style="color:black;">
+                    @Html.PasswordFor(u => u.Password)
+                    <div class="msgLoginFail">@Html.ValidationMessageFor(u => u.Password)</div>
+                </div>
+            </div>
+
+            <div class="divGenericoCentrado" style="margin-top: 15px; margin-bottom: 15px;">
+                <input class="btn btn-primary" type="submit" value="Ingresar" />
+            </div>
+
+        </fieldset>
+
+    </div>
+    <div id="container" onclick="return false;"></div>
+    <div style="margin-bottom:400px;"></div>
+    }
+
+    <script>
+        $(function () {
+            jqKeyboard.layouts = [{
+                lang: "en",
+                layout: ["`|~ 1|! 2|\u0040 3|# 4|$ 5|% 6|^ 7|& 8|* 9|( 0|) -|_ =|+ <<backspace>>",
+              "<<tab>> q w e r t y u i o p [|{ ]|} \\||",
+              "<<capslock>> a s d f g h j k l ;|: '|\" <<enter>>",
+              "<<shift>> z x c v b n m ,|< .|> /|? <<shift>>",
+              "<<space>>"]
+            }];
+
+            jqKeyboard.init({
+                containment: "#container",
+                allowed: ["input"],
+                icon: "dark"
+            });
+
+        });
+    </script>

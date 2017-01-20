@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CotizadorKoberModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="CotizadorKoberModelContainer1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Art" EntityType="CotizadorKoberModel.Art" />
+    <EntitySet Name="ListaPreciosD" EntityType="CotizadorKoberModel.ListaPreciosD" />
+    <FunctionImport Name="spEnviarDBMail">
+      <Parameter Name="Perfil" Mode="In" Type="String" />
+      <Parameter Name="Para" Mode="In" Type="String" />
+      <Parameter Name="CC" Mode="In" Type="String" />
+      <Parameter Name="CCO" Mode="In" Type="String" />
+      <Parameter Name="Asunto" Mode="In" Type="String" />
+      <Parameter Name="Mensaje" Mode="In" Type="String" />
+      <Parameter Name="Formato" Mode="In" Type="String" />
+      <Parameter Name="Importancia" Mode="In" Type="String" />
+      <Parameter Name="Sensitividad" Mode="In" Type="String" />
+      <Parameter Name="Adjuntos" Mode="In" Type="String" />
+      <Parameter Name="SQL" Mode="In" Type="String" />
+      <Parameter Name="SQLBase" Mode="In" Type="String" />
+      <Parameter Name="SQLAnexar" Mode="In" Type="Boolean" />
+      <Parameter Name="SQLAnexarNombre" Mode="In" Type="String" />
+      <Parameter Name="SQLConEncabezados" Mode="In" Type="Boolean" />
+      <Parameter Name="SQLAncho" Mode="In" Type="Int32" />
+      <Parameter Name="SQLSeparador" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="TMELogCotizadorKober" EntityType="CotizadorKoberModel.TMELogCotizadorKober" />
+  </EntityContainer>
+  <EntityType Name="Art">
+    <Key>
+      <PropertyRef Name="Articulo" />
+    </Key>
+    <Property Type="String" Name="Articulo" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Descripcion1" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Descripcion2" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="NombreCorto" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Grupo" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Categoria" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CategoriaActivoFijo" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Familia" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Fabricante" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ClaveFabricante" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="Impuesto1" Nullable="false" />
+    <Property Type="Double" Name="Impuesto2" />
+    <Property Type="String" Name="Factor" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Unidad" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TipoCosteo" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="Peso" />
+    <Property Type="Double" Name="Tara" />
+    <Property Type="Double" Name="Volumen" />
+    <Property Type="String" Name="Tipo" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="Accesorios" Nullable="false" />
+    <Property Type="Boolean" Name="Refacciones" Nullable="false" />
+    <Property Type="Boolean" Name="Sustitutos" Nullable="false" />
+    <Property Type="String" Name="MonedaCosto" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="MonedaPrecio" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="Decimal" Name="MargenMinimo" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="PrecioLista" Precision="19" Scale="4" />
+    <Property Type="Double" Name="FactorAlterno" />
+    <Property Type="Decimal" Name="PrecioAnterior" Precision="19" Scale="4" />
+    <Property Type="String" Name="Utilidad" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="DescuentoCompra" />
+    <Property Type="String" Name="Clase" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Estatus" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Type="DateTime" Name="UltimoCambio" Precision="3" />
+    <Property Type="DateTime" Name="Alta" Precision="3" />
+    <Property Type="Boolean" Name="Conciliar" Nullable="false" />
+    <Property Type="String" Name="Mensaje" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Comision" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Arancel" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ABC" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="Decimal" Name="Precio2" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="Precio3" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="Precio4" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="Precio5" Precision="19" Scale="4" />
+    <Property Type="Boolean" Name="ProdOpciones" Nullable="false" />
+    <Property Type="Boolean" Name="SeProduce" Nullable="false" />
+    <Property Type="Boolean" Name="Refrigeracion" Nullable="false" />
+    <Property Type="Boolean" Name="TieneCaducidad" Nullable="false" />
+    <Property Type="Decimal" Name="Precio10" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="PrecioMinimo" Precision="19" Scale="4" />
+    <Property Type="String" Name="UnidadCompra" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="Impuesto3" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="Precio6" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="Precio7" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="Precio8" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="Precio9" Precision="19" Scale="4" />
+    <Property Type="String" Name="CategoriaProd" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="ProdCantidad" />
+    <Property Type="String" Name="ProdUnidad" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ProdUsuario" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="Int32" Name="ProdPasoTotal" />
+    <Property Type="String" Name="ProdMov" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="ProdVerConcentracion" />
+    <Property Type="String" Name="Rama" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="ProdMovGrupo" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ProdEstacion" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="Boolean" Name="wMostrar" />
+    <Property Type="Int32" Name="TiempoEntrega" />
+    <Property Type="String" Name="TiempoEntregaUnidad" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="Merma" />
+    <Property Type="String" Name="Usuario" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="Double" Name="CantidadOrdenar" />
+    <Property Type="String" Name="ProdRuta" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Type="Boolean" Name="SeCompra" />
+    <Property Type="Boolean" Name="SeVende" />
+    <Property Type="Double" Name="InvSeguridad" />
+    <Property Type="String" Name="LoteOrdenar" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="MultiplosOrdenar" />
+    <Property Type="Double" Name="Desperdicio" />
+    <Property Type="Boolean" Name="EsFormula" />
+    <Property Type="Boolean" Name="ProdVerCostoAcumulado" />
+    <Property Type="Boolean" Name="ProdVerMerma" />
+    <Property Type="Boolean" Name="ProdVerDesperdicio" />
+    <Property Type="DateTime" Name="RevisionUltima" Precision="3" />
+    <Property Type="String" Name="RevisionUsuario" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="RevisionFrecuencia" />
+    <Property Type="String" Name="RevisionFrecuenciaUnidad" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="RevisionSiguiente" Precision="3" />
+    <Property Type="String" Name="TipoOpcion" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="TiempoEntregaSeg" />
+    <Property Type="String" Name="TiempoEntregaSegUnidad" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Situacion" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="SituacionFecha" Precision="3" />
+    <Property Type="String" Name="EstatusPrecio" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="Servicios" />
+    <Property Type="Boolean" Name="Consumibles" />
+    <Property Type="Double" Name="UnidadCantidad" />
+    <Property Type="String" Name="Linea" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TipoCompra" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="TieneMovimientos" />
+    <Property Type="Binary" Name="SincroID" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+    <Property Type="Int32" Name="SincroC" />
+    <Property Type="String" Name="AlmacenROP" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="Decimal" Name="CostoEstandar" Precision="19" Scale="4" />
+    <Property Type="Decimal" Name="CostoReposicion" Precision="19" Scale="4" />
+    <Property Type="String" Name="EstatusCosto" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="Margen" Precision="19" Scale="4" />
+    <Property Type="String" Name="Registro1" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="Registro1Vencimiento" Precision="3" />
+    <Property Type="String" Name="AlmacenEspecificoVenta" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="AlmacenEspecificoVentaMov" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="RutaDistribucion" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Proveedor" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="NivelAcceso" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="ProdVerPorcentaje" />
+    <Property Type="String" Name="Temporada" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="SolicitarPrecios" />
+    <Property Type="String" Name="AutoRecaudacion" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Concepto" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Cuenta" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="Retencion1" />
+    <Property Type="Double" Name="Retencion2" />
+    <Property Type="Boolean" Name="Espacios" />
+    <Property Type="Double" Name="EspaciosSobreventa" />
+    <Property Type="String" Name="EspaciosNivel" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="EspaciosMinutos" />
+    <Property Type="Boolean" Name="EspaciosBloquearAnteriores" />
+    <Property Type="String" Name="EspaciosHoraD" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="EspaciosHoraA" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="EspaciosEspecificos" />
+    <Property Type="Boolean" Name="BasculaPesar" />
+    <Property Type="Boolean" Name="SerieLoteInfo" />
+    <Property Type="Double" Name="CantidadMinimaVenta" />
+    <Property Type="Double" Name="EstimuloFiscal" />
+    <Property Type="String" Name="OrigenPais" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="OrigenLocalidad" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="Incentivo" Precision="19" Scale="4" />
+    <Property Type="Double" Name="FactorCompra" />
+    <Property Type="Double" Name="Horas" />
+    <Property Type="Boolean" Name="ISAN" />
+    <Property Type="Boolean" Name="ExcluirDescFormaPago" />
+    <Property Type="Boolean" Name="CubreSeguro" />
+    <Property Type="Boolean" Name="EsDeducible" />
+    <Property Type="Double" Name="CantidadMaximaVenta" />
+    <Property Type="Decimal" Name="Peaje" Precision="19" Scale="4" />
+    <Property Type="String" Name="CodigoAlterno" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TipoCatalogo" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="AnexosAlFacturar" />
+    <Property Type="Int32" Name="CaducidadMinima" />
+    <Property Type="Boolean" Name="LotesFijos" />
+    <Property Type="Boolean" Name="Actividades" />
+    <Property Type="String" Name="ValidarPresupuestoCompra" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SeriesLotesAutoOrden" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="UnidadTraspaso" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="LotesAuto" />
+    <Property Type="Int32" Name="Consecutivo" />
+    <Property Type="String" Name="TipoEmpaque" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Modelo" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Version" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="Impuesto1Excento" />
+    <Property Type="Boolean" Name="Excento2" />
+    <Property Type="Boolean" Name="Excento3" />
+    <Property Type="Boolean" Name="TieneDireccion" />
+    <Property Type="String" Name="Direccion" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DireccionNumero" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="EntreCalles" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Plano" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Observaciones" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Colonia" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Poblacion" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Estado" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Pais" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CodigoPostal" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Delegacion" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Ruta" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Codigo" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ClaveVehicular" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TipoVehiculo" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="DiasLibresIntereses" />
+    <Property Type="String" Name="Cuenta2" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Cuenta3" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="PrecioLiberado" />
+    <Property Type="Double" Name="Retencion3" />
+    <Property Type="Boolean" Name="ValidarCodigo" />
+    <Property Type="String" Name="Presentacion" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="GarantiaPlazo" />
+    <Property Type="Boolean" Name="CostoIdentificado" />
+    <Property Type="Double" Name="CantidadTarima" />
+    <Property Type="String" Name="UnidadTarima" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="DepartamentoDetallista" />
+    <Property Type="String" Name="TratadoComercial" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CuentaPresupuesto" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ProgramaSectorial" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ArancelDesperdicio" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PedimentoClave" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="PedimentoRegimen" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Permiso" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="PermisoRenglon" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="MinimoTarima" />
+    <Property Type="String" Name="SituacionUsuario" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="SituacionNota" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="DireccionNumeroInt" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMEClasificacion" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMECodigoAlterno" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="TMETiempoEntregaDF" />
+    <Property Type="Int32" Name="TMETiempoEntregaMK" />
+    <Property Type="String" Name="TMESubFamilia" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMEws_id" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMEws_status" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="TMEMonedaCompra" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="TMESubmarca" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="TMETipo" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="TMELinea" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="TMECodigoProv" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="TMETarja" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMELlave" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="TMEMultiplo" />
+    <Property Type="String" Name="CFDIRetClave" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="CFDIRetIEPSImpuesto" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMELLOpc1" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="TMELLOpc2" />
+    <Property Type="Double" Name="TMELLOpc3" />
+    <Property Type="String" Name="TMELLOpc4" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMETAOpc1" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="TMETAOpc2" />
+    <Property Type="Int32" Name="TMETAOpc3" />
+    <Property Type="Boolean" Name="TMETAOpc4" />
+    <Property Type="Int32" Name="TMETAOpc5" />
+    <Property Name="TMEClasfLam" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="TMECodigoLowe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TMEMaterial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TMECalibre" Type="Int32" />
+    <Property Name="TMEAcabado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TMETAOpc6" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TMETAOpc7" Type="Int32" />
+    <Property Name="TMETAOpc8" Type="Int32" />
+    <Property Name="TMEHiDef" Type="Boolean" />
+    <Property Name="TMEEscurrideroOrientacion" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="TMERutaApp" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="TMEMedidaInt" Type="Int32" />
+    <Property Name="TMEMedidaExt" Type="Int32" />
+    <Property Name="TMEGabinete" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ListaPreciosD">
+    <Key>
+      <PropertyRef Name="Lista" />
+      <PropertyRef Name="Moneda" />
+      <PropertyRef Name="Articulo" />
+    </Key>
+    <Property Type="String" Name="Lista" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Moneda" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Type="String" Name="Articulo" Nullable="false" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Type="Decimal" Name="Precio" Precision="19" Scale="4" />
+    <Property Type="String" Name="CodigoCliente" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="Margen" />
+    <Property Type="String" Name="Region" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMEws_id" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="TMEws_status" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TMELogCotizadorKober">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="accion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

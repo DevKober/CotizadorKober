@@ -1,0 +1,14 @@
+﻿<div style="text-align:right; margin-right:50px; color:whitesmoke;">
+    @if (Request.IsAuthenticated)
+    {
+        <span>Bienvenido, </span><strong>@Html.Encode(User.Identity.Name)</strong>
+        <span> | </span>
+        @Html.ActionLink("[Salir]", "LogOut", "User")
+    }
+    else
+    {
+        @Html.ActionLink("Login", "Login", "User")
+        <span> | </span>
+        @Html.ActionLink("Registrarse", "Register", "User")
+    }
+</div>

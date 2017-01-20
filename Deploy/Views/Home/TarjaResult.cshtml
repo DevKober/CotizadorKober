@@ -1,0 +1,184 @@
+﻿@*@model CotizadorKober.Models.ResultTarjas*@
+
+@{
+    ViewBag.Title = "TarjaResult";
+}
+
+<script src="~/Content/jquery-1.11.2.js"></script>
+<!-- Latest compiled and minified JavaScript -->    
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">    
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+
+@*<link href="~/Content/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="~/Content/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>*@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+
+<link href="~/Content/mk.css" rel="stylesheet" />
+
+
+    <p class="pMk" style="text-align:center; margin-top:100px; margin-bottom:10px; font-size:large;">Opciones disponibles de acuerdo a su selección</p>
+    <div style="margin:4px;">
+        <button id="btnInicio" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> Inicio</button>
+        <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Regresar</button>
+        <button id="btnComparar" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Comparar seleccionados</button>        
+        @*<input type='checkbox' data-toggle='toggle' data-on="Comparar" data-off=' '>*@
+    </div>
+    <div style="height:90%;">
+@*        <div class="btn-group-lg divGenericoCentrado" role="group" aria-label="...">0
+        <button id="btnPoco" type="button" class="btn btn-primary">Poco volumen</button>
+        <button id="btnMucho" type="button" class="btn btn-primary">Mucho volumen</button>
+        </div>*@
+
+        <div id="lista" style="overflow:auto;">
+
+        </div>
+
+        <div style="bottom:0px;">
+            <button id="btnInicio2" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> Inicio</button>
+            <button id="btnBack2" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Regresar</button>
+            <button id="btnComparar2" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Comparar seleccionados</button>
+        </div>
+
+    </div>
+
+<script>
+    $(function () {
+        var tipo = "@ViewBag.TipoTarja";
+        var medida = "@ViewBag.Medida";
+        var tinas = "@ViewBag.Tinas";
+        var escurridero = "@ViewBag.Escurridero";
+        var escOrient = "@ViewBag.EscOrient";
+        var volumen = "@ViewBag.Volumen";
+        var mueble = "@ViewBag.Mueble";
+        var cont = 0;
+
+        $("#btnInicio").click(function () {
+            window.location = "/Home/Index";
+        });
+
+        $("#btnInicio2").click(function () {
+            window.location = "/Home/Index";
+        });
+
+        $("#btnBack").click(function () {
+            window.location = "/Home/TarjaVolumen?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=" + escurridero + "&escOrient=" + escOrient;
+        });
+
+        $("#btnBack2").click(function () {
+            window.location = "/Home/TarjaVolumen?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=" + escurridero + "&escOrient=" + escOrient;
+        });
+        
+        $.ajax({
+            type: "GET",
+            url: "/Home/TarjaResult2?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen + "&mueble=" + mueble,
+            dataType: "json",
+            success: function (result) {
+
+                //loadCSS = function (href) {
+                //    var cssLink = $("<link rel='stylesheet' type='text/css' href='" + href + "'>");
+                //    $("head").append(cssLink);
+                //};
+                //loadJS = function (src) {
+                //    var jsLink = $("<script type='text/javascript' src='" + src + "'>");
+                //    $("head").append(jsLink);
+                //};
+                //loadCSS("/Content/bootstrap-toggle-master/css/bootstrap-toggle.min.css");
+                //loadJS("/Content/bootstrap-toggle-master/js/bootstrap-toggle.min.js");
+
+                var articulos = "";
+                var articulosSel = "";
+                function ColectaItems() {
+                    //FUNCION PARA VALIDAR ARTICULOS SELECCIONADOS PARA COMPARACION
+                    articulosSel = "";
+                    for (var x = 0, l = result.length; x < l; x++) {
+                        var id = "cb-" + result[x].Clave;
+                        var cb = document.getElementById(id);
+
+                        if (cb.checked) {
+                            articulosSel += "|" + result[x].Clave.trim().replace(/['"]+/g, '').replace(/['/]+/g, '');
+                        }
+                    }
+                }
+
+                $("#btnComparar").click(function () {
+                    ColectaItems();
+                    //alert(articulosSel);
+                    window.location = "/Home/TarjasCompara?lista=" + articulosSel + "&tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
+                });
+
+                $("#btnComparar2").click(function () {
+                    ColectaItems();
+                    //alert(articulosSel);
+                    window.location = "/Home/TarjasCompara?lista=" + articulosSel + "&tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
+                });
+
+                function ComparaUnico(clave) {
+                    window.location = "/Home/TarjasCompara?lista=" + clave;
+                };
+
+                var etiquetaPrecio = "";
+
+                //alert("window.open(" + JSON.stringify("/Home/TarjasSV?lista=" + "101") + ", '_blank');");
+
+                for (var i = 0, len = result.length; i < len; i++) {
+
+                    //$("#lista").append("<div class='divResultWrapper resItem'><div>" + result[i].Nombre + "</div>" +
+                    //    "<div class='divResultSidebar'><img style='width:180px; height:180px;' src='/Images/art/" + result[i].Clave + ".png' /></div>" +
+                    //    "<div class='divResultContent' color:darkgray;'><p>" + result[i].Marca + "</p><h3>$" + result[i].Precio + "</h3></div>" +
+                    //    "<div class='divResultCleared'></div>" +
+                    //    "</div>");
+
+                    //select * from ListaPreciosD where Articulo = 'TE-1T-730.5101C1ED' and Lista = 'MundoKober'
+                    if (result[i].Precio <= 0) {
+                        etiquetaPrecio = "Consulte precio con su asesor.";
+                    }
+                    else {
+                        if (result[i].Moneda.trim() == 'USD') {
+                            etiquetaPrecio = "$" + (result[i].Precio * 1.16).toFixed(2) + " (USD)";
+                        }
+                        else {
+                            etiquetaPrecio = "$" + (result[i].Precio * 1.16).toFixed(2);
+                        }
+                    }
+
+                    var theLink = JSON.stringify("/Home/TarjasSV?lista=" + result[i].Clave.trim().replace(/['"]+/g, ''));
+                    //var theLink = "";
+                    articulos += "|" + result[i].Clave;
+                    $("#lista").append("<div class='resItem'>" +
+                        "<div style='float:left'>" +
+                        "<div style='margin:2px;' color:darkgray;'><p class='lblMarca'>" + result[i].Marca + "</p>" + result[i].Clave +
+                            "<h4 class='lblPrecio'>" + etiquetaPrecio + "</h4>" +
+                        "</div>" +
+                        
+                        "<div class='divGenericoCentrado'><img style='width:200px; height:200px;' src='/Images/art_/" + result[i].Clave.trim().replace(/['"]+/g, '') + ".png' onclick='winOpn(" + theLink + ");' /></div>" +
+
+                        "<div class='lblDescripcion' style='margin-top:6px;'>" + result[i].Nombre + "</div>" +
+                        "</div>" +
+                        "<div style='overflow:auto;' class='divGenericoCentrado'>" +
+                        "<h6>Comparar</h6>" +
+                        "<input id='" + "cb-" + result[i].Clave + "' type='checkbox' onchange=''>" +
+                        "</div>");
+
+                    if ((cont == 2) || (i == result.length - 1)) {
+                        $("#lista").append("</div>")
+                        cont = 0;
+                    }
+                    else {
+                        cont += 1;
+                    }
+
+                }
+                //alert(articulos);
+            },
+            error: function (e) {
+                alert("ocurrio un error");
+            }
+        });
+    });
+</script>

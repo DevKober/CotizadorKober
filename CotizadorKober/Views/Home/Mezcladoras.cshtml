@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Mezcladoras";
+}
+
+    <script src="~/Content/jquery-1.11.2.js"></script>
+    <!-- Latest compiled and minified JavaScript -->    
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">    
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Content/mk.css" rel="stylesheet" />
+
+     <p class="pMk" style="text-align:center; font-size:28px;">Elija uno de los dos tipos de mezcladoras disponibles</p>
+     <div style="height:450px;">
+         <div class="divGenericoCentrado">
+             <div style="float: left; overflow:auto; width:250px; text-align:center; margin:10px; color: deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@                  
+                 <img id="imgMonomando" style="cursor:pointer;" src="~/Images/monomando.png" />
+                 <br />
+                 MONOMANDO
+                 <p style="font-style:italic; font-size:smaller;" >
+                 Un maneral
+                 </p>
+
+             </div>
+             <div style="float: left; overflow:auto; width:250px; text-align:center; margin:10px; color: deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+                 <img id="imgDoblemando" style="cursor:pointer;" src="~/Images/doblemando.png" />
+                 <br />
+                 DOBLE MANDO
+                 <p style="font-style:italic; font-size:smaller;">
+                 Dos manerales
+                 </p>
+             </div>
+         </div>
+         <div class="divGenericoCentrado">
+             <div style="margin-top:25px;">
+                 <img src="~/Images/1b.png" />
+             </div>
+         </div> 
+         <div class="divGenericoCentrado">
+             <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
+         </div>
+     </div>
+
+<script>
+    $(function () {
+        $("#imgMonomando").click(function () {
+            window.location = "/Home/MezcladoraAlcance?tipo=Monomando";
+        });
+
+        $("#imgDoblemando").click(function () {
+            window.location = "/Home/MezcladoraAlcance?tipo=Doble Mando";
+        });
+
+        $("#btnBack").click(function () {
+            window.location = "/Home/Index";
+        });
+    });
+</script>

@@ -1,0 +1,51 @@
+﻿@model CotizadorKober.Models.RegisterModel
+@{
+ViewBag.Title = "Registro";
+Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Registro</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Create user Fail, check your Fields");
+    <div>
+        <fieldset>
+            <legend>Registro de Usuario</legend>
+            <div>@Html.LabelFor(u => u.UserName) </div>
+            <div>
+                @Html.TextBoxFor(u => u.UserName)
+                @Html.ValidationMessageFor(u => u.UserName)
+            </div>
+            <div>@Html.LabelFor(u => u.Email ) </div>
+            <div>
+                @Html.TextBoxFor(u=> u.Email)
+                @Html.ValidationMessageFor(u => u.Email)
+            </div>
+            <div>@Html.LabelFor(u=> u.Password ) </div>
+            <div>
+                @Html.PasswordFor(u=> u.Password)
+                @Html.ValidationMessageFor(u=> u.Password)
+            </div>
+            <div>@Html.LabelFor(u => u.ConfirmPassword) </div>
+            <div>
+                @Html.PasswordFor(u => u.ConfirmPassword)
+                @Html.ValidationMessageFor(u => u.ConfirmPassword)
+            </div>
+            <div>@Html.LabelFor(u => u.FirstName) </div>
+            <div>
+                @Html.TextBoxFor(u => u.FirstName)
+                @Html.ValidationMessageFor(u => u.FirstName)
+            </div>
+            <div>@Html.LabelFor(u => u.LastName) </div>
+            <div>
+                @Html.TextBoxFor(u => u.LastName)
+                @Html.ValidationMessageFor(u => u.LastName)
+            </div>
+            <div>@Html.LabelFor(u => u.Lista)</div>
+            <div>
+                @Html.TextBoxFor(u => u.Lista)
+                @Html.ValidationMessageFor(u => u.Lista)
+            </div>
+            <input type="submit" value="Registrar" />
+        </fieldset>
+    </div>
+}

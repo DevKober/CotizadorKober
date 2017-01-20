@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "MezcladoraAltura";
+}
+
+    <script src="~/Content/jquery-1.11.2.js"></script>
+    <!-- Latest compiled and minified JavaScript -->    
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">    
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Content/mk.css" rel="stylesheet" />
+
+     <p class="pMk" style="text-align:center; font-size:28px;">Elija la altura del cuello de su mezcladora</p>
+     <div style="height:450px;">
+         <div class="divGenericoCentrado">
+             <div style="float: left; overflow:auto; width:230px; text-align:center; margin:5px; color:deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@                  
+                 <img id="imgBajo" style="cursor:pointer;" src="~/Images/bajo.png" />
+                 <p>
+                 BAJO
+                 </p>
+             </div>
+             <div style="float: left; overflow:auto; width:230px; text-align:center; margin:5px; color:deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+                 <img id="imgMedio" style="cursor:pointer;" src="~/Images/medio.png" />
+                 <p>
+                 MEDIO
+                 </p>
+             </div>
+             <div style="float: left; overflow:auto; width:230px; text-align:center; margin:5px; color:deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+                 <img id="imgAlto" style="cursor:pointer;" src="~/Images/alto.png" />
+                 <p>
+                 ALTO
+                 </p>
+             </div>
+         </div>
+         <div class="divGenericoCentrado">
+             <div style="margin-top:25px;">
+                 <img src="~/Images/3b.png" />
+             </div>
+         </div> 
+         <div class="divGenericoCentrado">
+             <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
+         </div>
+     </div>
+
+<script>
+    $(function () {
+        var tipo = "@ViewBag.TipoMezcladora";
+        var alcance = "@ViewBag.Alcance";
+
+        $("#imgBajo").click(function () {
+            window.location = "/Home/MezcladoraPresion?tipo=" + tipo + "&alcance=" + alcance + "&altura=bajo";
+        });
+
+        $("#imgMedio").click(function () {
+            window.location = "/Home/MezcladoraPresion?tipo=" + tipo + "&alcance=" + alcance + "&altura=medio";
+        });
+
+        $("#imgAlto").click(function () {
+            window.location = "/Home/MezcladoraPresion?tipo=" + tipo + "&alcance=" + alcance + "&altura=alto";
+        });
+
+        $("#btnBack").click(function () {
+            window.location = "/Home/MezcladoraAlcance?tipo=" + tipo;
+        });
+    });
+</script>

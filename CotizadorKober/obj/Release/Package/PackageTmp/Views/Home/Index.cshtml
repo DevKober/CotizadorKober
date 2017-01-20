@@ -1,0 +1,114 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@*<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Cotizador MundoKober</title>
+            
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />*@
+    
+    <script src="~/Content/jquery-1.11.2.js"></script>
+    <script src="~/Content/jquery-ui.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->    
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">
+    
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Content/mk.css" rel="stylesheet" />
+
+<!-- Teclado HTML -->
+<link rel="stylesheet" href="~/Content/Keyboard/jqkeyboard.css">
+<script src="~/Content/Keyboard/jqkeyboard-min.js"></script>
+
+<script src="~/Scripts/Coffee/coffeeTest.js"></script>
+
+@*    <script src="~/Scripts/jquery-1.9.1.min.js"></script>    
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/kendo/2013.1.319/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/2013.1.319/kendo.blueopal.min.css" rel="stylesheet" />
+    <script src="~/Scripts/kendo/2013.1.319/kendo.web.min.js"></script>*@
+@*</head>
+ <body>*@
+     <p class="pMk" style="text-align:center; margin-top:10px; font-size:28px;">Seleccione una de las categorías</p>
+     <div style="margin-bottom:10px;">
+         <div class="btn-group-lg divGenericoCentrado" role="group" aria-label="...">
+             <div style="margin:10px; padding:10px;">
+                 <div style="float: left;">
+                     <div class="divGenericoCentrado">
+                         <h3 style="color: deepskyblue;">Tarjas</h3>
+                     </div>
+                     <div id="btnTarjas" style="border-right: solid 1px; border-color: lightgray;"><a href="#" ><img src="~/Images/tarja.png" /></a></div>
+                     </div>
+                 <div style="float: left;">
+                     <div class="divGenericoCentrado">
+                         <h3 style="color: deepskyblue;">Llaves</h3>
+                     </div>
+                     <div style="border-left: solid 1px; border-color: lightgray;"><a href="#" id="btnMezcladoras"><img src="~/Images/mezcladora.png" /></a></div>
+                 </div>
+             </div>
+           @*<button id="btnTarjas_" type="button" class="btn btn-primary">Tarjas</button>
+           <button id="btnMezcladoras_" type="button" class="btn btn-primary">Llaves</button>*@
+         </div>
+     </div>
+    
+    @*<div class="divGenericoCentrado" style="width:350px; border:solid thin; border-radius:4px; margin-bottom:450px;">*@
+    <div class="divGenericoCentrado" style="width:350px; margin-bottom:450px;"> @*version 2*@
+    <div class="divGenericoCentrado" style="margin:10px;">
+        <div>
+            Codigo de producto:
+        </div>
+        <div style="float:left; width:250px;">
+            <input id="edtCodigo" type="text" class="form-control" placeholder="Escriba el código del producto..." aria-describedby="basic-addon1">
+        </div>
+        <button style="float:left;" id="btnBuscaCodigo" type="button" class="btn btn-primary">Buscar</button>
+    </div>
+    <div id="container" onclick="return false;"></div>
+</div>
+    
+@* </body>
+</html>*@
+
+<script>
+    $(function () {
+
+        jqKeyboard.layouts = [{
+            lang: "en",
+            layout: ["`|~ 1|! 2|\u0040 3|# 4|$ 5|% 6|^ 7|& 8|* 9|( 0|) -|_ =|+ <<backspace>>",
+          "<<tab>> q w e r t y u i o p [|{ ]|} \\||",
+          "<<capslock>> a s d f g h j k l ;|: '|\" <<enter>>",
+          "<<shift>> z x c v b n m ,|< .|> /|? <<shift>>",
+          "<<space>>"]
+        }];
+
+        jqKeyboard.init({
+            containment: "#container",
+            allowed: ["input"],
+            icon: "dark"
+        });
+
+        $("#btnTarjas").click(function () { 
+            window.location = "/Home/Tarjas";
+        });
+
+        $("#btnMezcladoras").click(function () {
+            window.location = "/Home/Mezcladoras";
+        });
+
+        $("#btnBuscaCodigo").click(function () {
+            window.location = "/Home/ConsultaCodigo?codigo=" + $("#edtCodigo").val();
+            //display();
+            //buscarCodigo($("#edtCodigo").val());
+        });
+
+    });
+</script>

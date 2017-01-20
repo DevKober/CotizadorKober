@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    @*<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>*@
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+    <link href="/Content/mk.css" rel="stylesheet"/>
+
+    <link href="/Content/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="/Content/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
+
+    <script>
+        function winOpn(lnk) {
+            var w = screen.width / 3;
+            var h = 100;
+            window.open(lnk, '_blank', "height=500,width=600, top=" + h + ", left=" + w + ", menubar=no, resizeable=no, status=no, titlebar=no, toolbar=no");
+        };
+    </script>
+
+</head>
+<body>
+
+    @*<div class="divGlobalCentrado" style="background-image: url(/Images/bg.png); background-repeat: no-repeat;">*@        
+    <div class="divGlobalCentrado" style="background-color: white; padding: 20px;" >
+            <div style="margin-bottom: 10px;">
+                @*<img src="~/Images/logo.png" />*@
+            </div>
+            @RenderBody()
+            @*<div style="background-color:darkgray; height:100px;"></div>*@
+        </div>    
+     
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

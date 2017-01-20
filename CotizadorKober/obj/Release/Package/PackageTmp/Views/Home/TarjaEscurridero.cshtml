@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "TarjaEscurridero";
+}
+
+<script src="~/Content/jquery-1.11.2.js"></script>
+<!-- Latest compiled and minified JavaScript -->    
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">    
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<link href="~/Content/mk.css" rel="stylesheet" />
+
+<p class="pMk" style="text-align:center; margin-bottom:10px; font-size:28px;">¿Como le gustaría su tarja, con o sin escurridero?</p>
+<div style="height:450px;">
+    <div class="divGenericoCentrado">
+        <div style="float: left; overflow:auto; width:250px; text-align:center; margin:5px;  color: deepskyblue;">
+            <img id="conEscurridero" style="cursor:pointer;" src="~/Images/conEscurridero.png" />
+            <p>
+            CON ESCURRIDERO
+            </p>
+        </div>
+        <div style="float: left; overflow:auto; width:250px; text-align:center; margin:5px; color: deepskyblue;">
+            <img id="sinEscurridero" style="cursor:pointer;" src="~/Images/sinEscurridero.png" />
+            <p>
+            SIN ESCURRIDERO
+            </p>
+        </div>
+    </div>
+<div class="divGenericoCentrado">
+    <div style="margin-top:25px;">
+        <img src="~/Images/pb7-5.png" />
+    </div>
+</div> 
+    <div class="divGenericoCentrado">
+        <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
+    </div>
+</div>
+ 
+<script>
+    $(function () {
+        var tipo = "@ViewBag.TipoTarja";
+        var medida = "@ViewBag.Medida";
+        var tinas = "@ViewBag.Tinas";
+        var mueble = "@ViewBag.Mueble";
+
+        $("#conEscurridero").click(function () {
+            window.location = "/Home/TarjaEscOrient?tipo=" + tipo + "&medida=" + medida + "&mueble=" + mueble + "&tinas=" + tinas + "&escurridero=1";
+        });
+
+        $("#sinEscurridero").click(function () {
+            window.location = "/Home/TarjaVolumen?tipo=" + tipo + "&medida=" + medida + "&mueble=" + mueble + "&tinas=" + tinas + "&escurridero=0" + "&escOrient=N";
+        });
+
+        $("#btnBack").click(function () {
+            //window.location = "/Home/TarjaTinas?tipo=" + tipo + "&medida=" + medida;
+            window.location = "/Home/TarjaMueble?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas;
+        });
+    });
+</script>
+

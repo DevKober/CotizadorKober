@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "TarjasView";
+}
+
+@Html.Hidden("TipoTarja", "")
+    
+    <script src="~/Content/jquery-1.11.2.js"></script>
+    <!-- Latest compiled and minified JavaScript -->    
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">    
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Content/mk.css" rel="stylesheet" />
+
+     <p class="pMk" style="text-align:center; font-size:28px;">Seleccione el tipo de tarja</p>
+     <div style="height:450px;">
+         <div class="divGenericoCentrado">
+             <div style="float: left; overflow:auto; text-align:center; margin:5px; border:solid; border-radius:3px; border-width:1px; border-color:white; color: deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@                  
+                 <img id="imgEmpotrar" style="cursor:pointer;" src="~/Images/empotrar.png" />
+                 <br />
+                 PARA EMPOTRAR
+                 <p style="font-style:italic; font-size:smaller;" >
+                 Se instala por arriba de la cubierta
+                 </p>
+
+             </div>
+
+             <div style="float: left; overflow:auto; text-align:center; margin:5px; border:solid; border-radius:3px; border-width:1px; border-color:white; color: deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+                 <img id="imgSubmontar" style="cursor:pointer;" src="~/Images/submontar.png" />
+                 <br />
+                 PARA SUBMONTAR
+                 <p style="font-style:italic; font-size:smaller;">
+                 Se instala por abajo de la cubierta
+                 </p>
+             </div>             
+         </div>
+         <div class="divGenericoCentrado">
+             <div style="margin-top:25px;">
+                <img src="~/Images/pb7-1.png" />
+             </div>
+         </div>
+         <div class="divGenericoCentrado">
+            <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
+         </div>
+     </div>
+
+<script>
+    $(function () {
+        $("#imgEmpotrar").click(function () {
+            window.location = "/Home/TarjaMedida?tipo=Empotrar";
+        });
+
+        $("#imgSubmontar").click(function () {
+            window.location = "/Home/TarjaMedida?tipo=Submontar";
+        });
+
+        $("#btnBack").click(function () {
+            window.location = "/Home/Index";
+        });
+    });
+</script>

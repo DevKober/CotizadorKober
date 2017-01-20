@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "MezcladoraAlcance";
+}
+
+    <script src="~/Content/jquery-1.11.2.js"></script>
+    <!-- Latest compiled and minified JavaScript -->    
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">    
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <link href="~/Content/mk.css" rel="stylesheet" />
+
+     <p class="pMk" style="text-align:center; font-size:28px;">Elija el alcance de su mezcladora</p>
+     <div style="height:450px;">
+         <div class="divGenericoCentrado">
+             <div style="float: left; overflow:auto; width:250px; text-align:center; margin:10px; color:deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@                  
+                 <img id="imgCorto" style="cursor:pointer;" src="~/Images/corto.png" />
+                 <br />
+                 CORTO
+                 <p style="font-style:italic; font-size:smaller;" >
+                 Para una tina pequeña
+                 </p>
+
+             </div>
+             <div style="float: left; overflow:auto; width:250px; text-align:center; margin:10px; color:deepskyblue;">
+                 @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+                 <img id="imgLargo" style="cursor:pointer;" src="~/Images/largo.png" />
+                 <br />
+                 LARGO
+                 <p style="font-style:italic; font-size:smaller;">
+                 Para una tina grande o dos tinas
+                 </p>
+             </div>
+
+         </div>
+         <div class="divGenericoCentrado">
+             <div style="margin-top:25px;">
+                 <img src="~/Images/2b.png" />
+             </div>
+         </div> 
+         <div class="divGenericoCentrado">
+             <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
+         </div>
+     </div>
+
+<script>
+    $(function () {
+        var tipo = "@ViewBag.TipoMezcladora";
+
+        $("#imgCorto").click(function () {
+            window.location = "/Home/MezcladoraAltura?tipo=" + tipo + "&alcance=corto";
+        });
+
+        $("#imgLargo").click(function () {
+            window.location = "/Home/MezcladoraAltura?tipo=" + tipo + "&alcance=largo";
+        });
+
+        $("#btnBack").click(function () {
+            window.location = "/Home/Mezcladoras";
+        });
+    });
+</script>

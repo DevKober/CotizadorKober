@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "TarjaMueble";
+}
+
+
+<script src="~/Content/jquery-1.11.2.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<link href="~/Content/mk.css" rel="stylesheet" />
+
+<p class="pMk" style="text-align:center; font-size:28px;">Elija el tamaño de su mueble</p>
+<div style="height:450px;">
+    <div class="divGenericoCentrado">
+        <div style="float: left; overflow:auto; width:230px; text-align:center; margin:2px; color: deepskyblue;">
+            @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+            <img id="mb100menos" style="cursor:pointer;" src="~/Images/muebleMenor100.png" />
+            <p>
+                MUEBLE MENOR A 100 cm DE ANCHO
+            </p>
+        </div>
+        <div style="float: left; overflow:auto; width:230px; text-align:center; margin:2px; color: deepskyblue;">
+            @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+            <img id="mb100" style="cursor:pointer;" src="~/Images/mueble100.png" />
+            <p>
+                MUEBLE DE 100 cm DE ANCHO
+            </p>
+        </div>
+        <div style="float: left; overflow:auto; width:230px; text-align:center; margin:2px; color: deepskyblue;">
+            @*border:solid; border-radius:3px; border-width:1px; border-color:lightgray;*@
+            <img id="mb100mas" style="cursor:pointer;" src="~/Images/muebleMayor100.png" />
+            <p>
+                MUEBLE MAYOR A 100 cm DE ANCHO
+            </p>
+        </div>
+    </div>
+    <div class="divGenericoCentrado">
+        <div style="margin-top:25px;">
+            <img src="~/Images/pb7-4.png" />
+        </div>
+    </div>
+    <div class="divGenericoCentrado">
+        <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var tipo = "@ViewBag.TipoTarja";
+        var medida = "@ViewBag.Medida";
+        var tinas = "@ViewBag.Tinas";
+
+        $("#mb100menos").click(function () {
+            window.location = "/Home/TarjaEscurridero?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=100menos";
+        });
+
+        $("#mb100").click(function () {
+            window.location = "/Home/TarjaEscurridero?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=100";
+        });
+
+        $("#mb100mas").click(function () {
+            window.location = "/Home/TarjaEscurridero?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=100mas";
+        });
+        $("#btnBack").click(function () {
+            //window.location = "/Home/TarjaMedida?tipo=" + tipo;
+            window.location = "/Home/TarjaTinas?tipo=" + tipo + "&medida=" + medida;
+        });
+    });
+</script>

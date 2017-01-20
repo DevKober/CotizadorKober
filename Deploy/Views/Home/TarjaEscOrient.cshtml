@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "TarjaEscOrient";
+}
+
+
+<script src="~/Content/jquery-1.11.2.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<link href="~/Content/mk.css" rel="stylesheet" />
+
+<p class="pMk" style="text-align:center; margin-bottom:10px; font-size:28px;">Elija la orientación del escurridero</p>
+<div style="height:450px;">
+    <div class="divGenericoCentrado">
+        <div style="float: left; overflow:auto; width:150px; text-align:center; margin:5px;  color: deepskyblue;">
+            <img id="I" style="cursor:pointer;" src="~/Images/escI.png" />
+            <p>
+                IZQUIERDA
+            </p>
+        </div>
+        <div style="float: left; overflow:auto; width:150px; text-align:center; margin:5px; color: deepskyblue;">
+            <img id="D" style="cursor:pointer;" src="~/Images/escD.png" />
+            <p>
+                DERECHA
+            </p>
+        </div>
+        <div style="float: left; overflow:auto; width:150px; text-align:center; margin:5px; color: deepskyblue;">
+            <img id="A" style="cursor:pointer;" src="~/Images/escA.png" />
+            <p>
+                AMBOS
+            </p>
+        </div>
+    </div>
+    <div class="divGenericoCentrado">
+        <div style="margin-top:25px;">
+            <img src="~/Images/pb7-6.png" />
+        </div>
+    </div>
+    <div class="divGenericoCentrado">
+        <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        var tipo = "@ViewBag.TipoTarja";
+        var medida = "@ViewBag.Medida";
+        var tinas = "@ViewBag.Tinas";
+        var mueble = "@ViewBag.Mueble";
+        var escurridero = "@ViewBag.Escurridero";
+
+        $("#I").click(function () {
+            window.location = "/Home/TarjaVolumen?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=1" + "&escOrient=I";
+        });
+
+        $("#D").click(function () {
+            window.location = "/Home/TarjaVolumen?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=1" + "&escOrient=D";
+        });
+
+        $("#A").click(function () {
+            window.location = "/Home/TarjaVolumen?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=1" + "&escOrient=A";
+        });
+
+        $("#btnBack").click(function () {
+            ///TarjaEscurridero?tipo=Empotrar&medida=1&tinas=1&mueble=100menos
+            window.location = "/Home/TarjaEscurridero?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble;
+        });
+    });
+</script>

@@ -1,0 +1,176 @@
+﻿@model IEnumerable<CotizadorKober.Models.Roles>
+
+@{
+    ViewBag.Title = "Administración de Roles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript">
+
+    function prepareWindow(editType, entityID) {
+        if (editType == 1) {
+            $('#btnModalOK').val("Agregar");
+            $(".modal-title").html("Agregar Rol");
+            $("#txtName").val("");
+            $("#txtRoleID").val("");
+        } else if (editType == 2) {
+            $('#btnModalOK').val("Editar");
+            $(".modal-title").html("Editar Rol");
+            $("#txtName").val($("#dataName_" + entityID).html());
+            $("#txtRoleID").val($("#dataRoleId_" + entityID).html());
+        }
+    }
+
+    function deleteWindow(entityID) {
+        $('#btnDeleteOK').val(entityID);
+    }
+
+    $(document).ready(function () {
+        $("#btnModalOK").click(function () {
+            if ($("#txtName").val().trim() == "") {
+                $("#addMsg").html("Es necesario indicar el Nombre del Rol");
+                return;
+            }
+            var editType = $('#btnModalOK').val();
+            var values = $("#txtRoleID").val() + "||" + $("#txtName").val();
+            if (editType == "Agregar") {
+                $.post("/User/AddRole",
+                    {
+                        data: values
+                    }, function (result) {
+                        if (result != "OK") {
+                            $("#addMsg").html(result);
+                        } else {
+                            location.reload();
+                        }
+                    });
+            } else if (editType == "Editar") {
+                $.post("/User/EditRole",
+                    {
+                        data: values
+                    }, function (result) {
+                        if (result != "OK") {
+                            $("#addMsg").html(result);
+                        } else {
+                            location.reload();
+                        }
+                    });
+            }
+        });
+
+        $("#btnDeleteOK").click(function () {
+            var entityID = $('#btnDeleteOK').val();
+            $.post("/User/DeleteRole",
+                {
+                    data: entityID
+                }, function (result) {
+                    if (result != "OK") {
+                        $("#deleteMsg").html(result);
+                    } else {
+                        location.reload();
+                    }
+                });
+        });
+    });
+</script>
+
+<h2 class="catalogTitle">Administración de Roles</h2>
+
+<p>
+    @*@Html.ActionLink("Nuevo Usuario", "Add", null, new { @class = "button openDialogAdd" })*@
+    @if (ViewBag.CanCreate) {
+        <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#modalAdd" onclick="prepareWindow(1,0);">Nuevo Rol</button>
+    }
+    else
+    {
+        <button type="button" class="btn btn-info btn-lg button" disabled="disabled">Nuevo Rol</button>
+    }
+</p>
+<table class="dataTable">
+    <tr>
+        <th class="headerColumnID">
+            ID
+        </th>
+        <th class="headerColumn">
+            Nombre del Rol
+        </th>
+        <th class="headerColumnCommands"></th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td class="dataColumnID">
+                <span id="dataRoleId_@item.RoleID">@item.RoleID</span>
+            </td>
+            <td class="dataColumn" style="width:400px;">
+                <span id="dataName_@item.RoleID">@item.Name</span>
+            </td>
+            <td class="dataColumnCommands">
+                @if (ViewBag.CanUpdate) {
+                    <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#modalAdd" onclick="prepareWindow(2,@item.RoleID)">Editar</button>
+                }
+                @if (ViewBag.CanDelete) {
+                    <button type="button" class="btn btn-info btn-lg button" data-toggle="modal" data-target="#modalDelete" onclick="deleteWindow(@item.RoleID);">Eliminar</button>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="container">
+    <!-- Add Modal -->
+    <div class="modal fade" id="modalAdd" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Agregar Rol</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="addMsg"></div>
+                    <table>
+                        <tr>
+                            <td>Nombre del Rol</td>
+                            <td>
+                                @Html.Hidden("txtRoleID")
+                                @Html.TextBox("txtName")
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default button OKButton" id="btnModalOK">Aceptar</button>
+                    <button type="button" class="btn btn-default button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <!-- Add Modal -->
+    <div class="modal fade" id="modalDelete" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Eliminar Rol</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Esta seguro de eliminar el Rol?
+                    <div id="deleteMsg"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default button" id="btnDeleteOK">Aceptar</button>
+                    <button type="button" class="btn btn-default button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

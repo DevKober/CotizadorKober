@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "TarjasCompara";
+}
+
+<script src="~/Content/jquery-1.11.2.js"></script>
+<script src="~/Content/jquery-ui.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->    
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap/css/full-slider.css">    
+<script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="~/Content/blueprint/screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="~/Content/blueprint/print.css" type="text/css" media="print">
+<!--[if lt IE 8]>
+  <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+
+
+<link href="~/Content/mk.css" rel="stylesheet" />
+
+<!-- Teclado HTML -->
+<link rel="stylesheet" href="~/Content/Keyboard/jqkeyboard.css">
+<script src="~/Content/Keyboard/jqkeyboard-min.js"></script>
+
+<div id="espaciador" style="margin:50px;"></div>
+
+<div style="margin:auto; overflow:auto; padding:5px; background-color:lightgray;">
+    <input id="mail" type="text" style="width:300px; float:left;" class="form-control" placeholder="Escriba su dirección de email..." aria-describedby="basic-addon1">
+    <button id="btnEnviar" style="float:left; margin-left:2px; margin-top: 7px;" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Enviar por email</button>
+</div>
+
+
+<div id="divConfirmacion" class="divGenericoCentrado" style="height:100px; width:100%; border:solid 1px; border-radius:3px; border-color:gray; background-color:limegreen;">
+    <div class="divGenericoCentrado">
+      <h3>Se ha enviado un email con su selección de productos</h3>
+      <div class="divGenericoCentrado">
+        <button id="btnBck" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Regresar</button>
+      </div>
+    </div>
+</div>
+
+<div id="divTabComp" style="overflow:auto; margin-top:10px; padding:5px;">
+    <div id="container" onclick="return false;"></div>    
+</div>
+
+<button id="btnInicio" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;">Ir al inicio</button>
+<button id="btnAnterior" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;">Anterior</button>
+
+<script>
+    var tipo = "@ViewBag.TipoTarja";
+    var medida = "@ViewBag.Medida";
+    var tinas = "@ViewBag.Tinas";
+    var escurridero = "@ViewBag.Escurridero";
+    var escOrient = "@ViewBag.EscOrient";
+    var volumen = "@ViewBag.Volumen";
+
+    jqKeyboard.layouts = [{
+        lang: "en",
+        layout: ["`|~ 1|! 2|\u0040 3|# 4|$ 5|% 6|^ 7|& 8|* 9|( 0|) -|_ =|+ <<backspace>>",
+      "<<tab>> q w e r t y u i o p [|{ ]|} \\||",
+      "<<capslock>> a s d f g h j k l ;|: '|\" <<enter>>",
+      "<<shift>> z x c v b n m ,|< .|> /|? <<shift>>",
+      "<<space>>"]
+    }];
+
+    jqKeyboard.init({
+        containment: "#container",
+        allowed: ["input"],
+        icon: "dark"
+    });
+
+    $("#divConfirmacion").hide();
+
+    var lista = "@ViewBag.Lista";
+
+    $("#btnInicio").click(function () {
+        window.location = "/Home/Index";
+    });
+
+    $("#btnAnterior").click(function () {
+        //alert(document.referrer.indexOf("ConsultaCodigo"));
+        if (document.referrer.indexOf("ConsultaCodigo") > -1) {
+            window.location = "/Home/Index";
+        }
+        else {
+            window.location = "/Home/TarjaResult?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
+        }
+    });
+
+    $.when(compResult()).done(function () {
+        //
+        //alert("ok");    
+    });
+
+    var mailContent = "";
+    var cont = 0;
+
+    //alert(lista.trim().replace(/['"]+/g, ''));
+    function compResult() {
+        return $.ajax({
+            url: "/Home/ResultComparativo?lista=" + lista.trim().replace(/['"]+/g, '').replace(/['/]+/g, ''),
+            dataType: "json",
+            success: function (result) {
+                var etiquetaPrecio = "";
+                for (var i = 0, len = result.length; i < len; i++) {
+                    /*
+                    Clave = i.ClaveFabricante,
+                         Marca = i.Fabricante,
+                         Nombre = i.Descripcion2,
+                         Precio = precios.Precio ?? 0,
+                         Material = "",
+                         Calibre = 0,
+                         Serie = "",
+                         Acabado = "",
+                         ProfundidadTina1 = 0,
+                         ProfundidadTina2 = 0,
+                         ProfundidadTina3 = 0
+                    */
+
+                    if (result[i].Precio <= 0) {
+                        etiquetaPrecio = "Consulte precio con su asesor.";
+                    }
+                    else {
+                        if (result[i].Moneda.trim() == 'USD') {
+                            etiquetaPrecio = "$" + (result[i].Precio * 1.16).toFixed(2) + " (USD)";
+                        }
+                        else {
+                            etiquetaPrecio = "$" + (result[i].Precio * 1.16).toFixed(2);
+                        }
+                    }
+                    
+                    $("#divTabComp").append("<div class='divGenericoCentrado' style='margin:10px; width: 95%; border: solid 2px; border-radius: 3px; border-color: lightgray;'>" +
+                        "<div>" +
+                        //"<img src='http://148.244.194.94:8086/kober/_art/" + result[i].Clave + ".jpg' />" +
+                        "<div style='margin:10px; float:left; padding: 3px;'>" +
+                            "<img style='width:300px; height:300px;' src='/Images/art_/" + result[i].Clave.trim().replace(/['"]+/g, '') + ".png' />" +
+                        "</div>" +
+                        "<div style='margin:10px; padding: 3px;'><p class='lblMarca'>" + result[i].Marca + "</p>" +
+                            "<div class='lblModelo' style='margin-left:5px;'>" + result[i].Clave + "</div>" +
+                            "<div class='lblDescripcion' style='margin-left:5px;'>" + result[i].Nombre + "</div>" +
+                            "<div style='margin-left:5px;'>Material: " + result[i].Material + "</div>" +
+                            "<div style='margin-left:5px;'>Serie: " + result[i].Serie + "</div>" +
+                            "<div style='margin-left:5px;'>Acabado: " + result[i].Acabado + "</div>" +
+                            "<div style='margin-left:5px;'>Calibre: " + result[i].Calibre + "</div>" +
+                            "<div style='margin-left:5px;'>Profundidad de tina 1: " + result[i].ProfundidadTina1 + "</div>" +
+                            "<div style='margin-left:5px;'>Profundidad de tina 2: " + result[i].ProfundidadTina2 + "</div>" +
+                            "<div style='margin-left:5px;'>Profundidad de tina 3: " + result[i].ProfundidadTina3 + "</div>" +
+                            "<p class='lblPrecioVar'>Cambio de precios sin previo aviso. Los precios pueden reflejar cambios de acuerdo al tipo de cambio diario.</p>" +
+                        "<h4 class='lblPrecio'>" + etiquetaPrecio + "</h4></div>" +
+                        "</div>");
+
+                    if (cont == 2) {
+                        $("#divTabComp").append("</div>")
+                        cont = 0;
+                    }
+                    else {
+                        cont += 1;
+                    }
+
+                    mailContent += "<div>" +
+                        //"<div><img src='http://148.244.194.94:8086/kober/art/" + result[i].Clave + ".jpg' /></div>" +
+                        "<div><img src='http://portalinnovika.com/Images/kober/art/" + result[i].Clave + ".jpg' /></div>" +
+                        "<div>" +
+                            "<div>" +
+                                "<div><p>" + result[i].Marca + "</p>" +
+                                    "<div>" + result[i].Nombre + "</div>" +
+                                    "<div>Material: " + result[i].Material + "</div>" +
+                                    "<div>Serie: " + result[i].Serie + "</div>" +
+                                    "<div>Acabado: " + result[i].Acabado + "</div>" +
+                                    "<div>Calibre: " + result[i].Calibre + "</div>" +
+                                    "<div>Profundidad de tina 1: " + result[i].ProfundidadTina1 + "</div>" +
+                                    "<div>Profundidad de tina 2: " + result[i].ProfundidadTina2 + "</div>" +
+                                    "<div>Profundidad de tina 3: " + result[i].ProfundidadTina3 + "</div>" +
+                                    "<h4>" + etiquetaPrecio + "</h4>" +
+                                    "Cambio de precios sin previo aviso. Los precios pueden reflejar cambios de acuerdo al tipo de cambio diario. <br />" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+
+                        "</div>";
+                }
+            },
+            error: function (e) {
+                //alert(lista);
+                alert("Error al obtener datos comparativos");
+            }
+        });
+    };
+
+    $("#btnEnviar").click(function () {
+        //ENVIA EL CONJUNTO DE ARTICULOS POR MAIL
+        var para = document.getElementById("mail").value;
+        //var bdy = "<!DOCTYPE html><html><head><title></title></head><body>" + $("#divTabComp").html() + "</body></html>";
+        var bdy = "<!DOCTYPE html><html><head><title></title></head><body>" + mailContent + "</body></html>";
+        bdy = JSON.stringify(bdy);
+        var datos = { 'para': para, 'subject': 'Kober - Información sobre productos', 'msg': bdy }
+
+        $.ajax({
+            url: "/Home/EnviaMail",
+            type: "POST",
+            data: datos,
+            success: function (result) {              
+                //MOSTRAR PANEL INFORMATIVO DE CONFIRMACION DE ENVIO DE MAIL
+
+                //window.scrollTo(0, document.body.scrollHeight);
+                $("#btnBck").click(function () {
+                    window.location = "/Home/Index";
+                });
+                $("#divConfirmacion").slideDown(1000);
+            },
+            error: function (e) {
+                alert("Error al enviar email " + e);
+            }
+        });
+
+    });
+
+</script>
+
