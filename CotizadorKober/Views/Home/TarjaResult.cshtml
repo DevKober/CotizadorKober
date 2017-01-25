@@ -23,6 +23,16 @@
 
 
     <p class="pMk" style="text-align:center; margin-top:100px; margin-bottom:10px; font-size:large;">Opciones disponibles de acuerdo a su selección</p>
+    <div class="divGenericoCentrado">
+        <ol class="breadcrumb" id="olOpt">
+            <li><a href="/Home/Index">Inicio</a></li>
+            <li><a href="/Home/Tarjas/">Tarjas</a></li>
+            <li><a href="/Home/TarjaMedida?tipo=@ViewBag.TipoTarja">Medida</a></li>
+            <li><a href="/Home/TarjaTinas?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida">Tinas</a></li>
+            <li><a href="/Home/TarjaMueble?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas">Mueble</a></li>
+            <li><a href="/Home/TarjaEscurridero?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero">Escurridero</a></li>
+        </ol>
+    </div>
     <div style="margin:4px;">
         <button id="btnInicio" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> Inicio</button>
         <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Regresar</button>
@@ -73,7 +83,17 @@
         $("#btnBack2").click(function () {
             window.location = "/Home/TarjaVolumen?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=" + escurridero + "&escOrient=" + escOrient;
         });
-        
+
+        if (escurridero > 0) {
+            $("#olOpt").append("<li><a href='/Home/TarjaEscOrient?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero'>Orientacion de escurridero</a></li>");
+            $("#olOpt").append("<li><a href='/Home/TarjaVolumen?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero&escOrient=@ViewBag.EscOrient'>Volumen</a></li>");
+            $("#olOpt").append("<li>Resultados</li>");
+        }
+        else {
+            $("#olOpt").append("<li><a href='/Home/TarjaVolumen?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero&escOrient=@ViewBag.EscOrient'>Volumen</a></li>");
+            $("#olOpt").append("<li>Resultados</li>");
+        }
+
         $.ajax({
             type: "GET",
             url: "/Home/TarjaResult2?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen + "&mueble=" + mueble,
@@ -109,13 +129,13 @@
                 $("#btnComparar").click(function () {
                     ColectaItems();
                     //alert(articulosSel);
-                    window.location = "/Home/TarjasCompara?lista=" + articulosSel + "&tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
+                    window.location = "/Home/TarjasCompara?lista=" + articulosSel + "&tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
                 });
 
                 $("#btnComparar2").click(function () {
                     ColectaItems();
                     //alert(articulosSel);
-                    window.location = "/Home/TarjasCompara?lista=" + articulosSel + "&tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
+                    window.location = "/Home/TarjasCompara?lista=" + articulosSel + "&tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
                 });
 
                 function ComparaUnico(clave) {
@@ -155,7 +175,7 @@
                         "<div style='margin:2px;' color:darkgray;'><p class='lblMarca'>" + result[i].Marca + "</p>" + result[i].Clave +
                             "<h4 class='lblPrecio'>" + etiquetaPrecio + "</h4>" +
                         "</div>" +
-                        
+
                         "<div class='divGenericoCentrado'><img style='width:200px; height:200px;' src='/Images/art_/" + result[i].Clave.trim().replace(/['"]+/g, '') + ".png' onclick='winOpn(" + theLink + ");' /></div>" +
 
                         "<div class='lblDescripcion' style='margin-top:6px;'>" + result[i].Nombre + "</div>" +

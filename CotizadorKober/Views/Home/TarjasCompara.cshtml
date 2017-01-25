@@ -28,6 +28,17 @@
 
 <div id="espaciador" style="margin:50px;"></div>
 
+<div class="divGenericoCentrado">
+    <ol class="breadcrumb" id="olOpt">
+        <li><a href="/Home/Index">Inicio</a></li>
+        <li><a href="/Home/Tarjas/">Tarjas</a></li>
+        <li><a href="/Home/TarjaMedida?tipo=@ViewBag.TipoTarja">Medida</a></li>
+        <li><a href="/Home/TarjaTinas?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida">Tinas</a></li>
+        <li><a href="/Home/TarjaMueble?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas">Mueble</a></li>
+        <li><a href="/Home/TarjaEscurridero?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero">Escurridero</a></li>
+    </ol>
+</div>
+
 <div style="margin:auto; overflow:auto; padding:5px; background-color:lightgray;">
     <input id="mail" type="text" style="width:300px; float:left;" class="form-control" placeholder="Escriba su dirección de email..." aria-describedby="basic-addon1">
     <button id="btnEnviar" style="float:left; margin-left:2px; margin-top: 7px;" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Enviar por email</button>
@@ -54,6 +65,7 @@
     var tipo = "@ViewBag.TipoTarja";
     var medida = "@ViewBag.Medida";
     var tinas = "@ViewBag.Tinas";
+    var mueble = "@ViewBag.Mueble";
     var escurridero = "@ViewBag.Escurridero";
     var escOrient = "@ViewBag.EscOrient";
     var volumen = "@ViewBag.Volumen";
@@ -87,9 +99,19 @@
             window.location = "/Home/Index";
         }
         else {
-            window.location = "/Home/TarjaResult?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&escurridero=" + escurridero + "&escOrient=" + escOrient + "&volumen=" + volumen;
+            window.location = "/Home/TarjaResult?tipo=" + tipo + "&medida=" + medida + "&tinas=" + tinas + "&mueble=" + mueble + "&escurridero=" + escurridero + "&mueble=" + mueble + "&escOrient=" + escOrient + "&volumen=" + volumen;
         }
     });
+
+    if (escurridero > 0) {
+        $("#olOpt").append("<li><a href='/Home/TarjaEscOrient?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero'>Orientacion de escurridero</a></li>");
+        $("#olOpt").append("<li><a href='/Home/TarjaVolumen?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero&escOrient=@ViewBag.EscOrient'>Volumen</a></li>");
+        $("#olOpt").append("<li>Resultados</li>");
+    }
+    else {
+        $("#olOpt").append("<li><a href='/Home/TarjaVolumen?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero&escOrient=@ViewBag.EscOrient'>Volumen</a></li>");
+        $("#olOpt").append("<li>Resultados</li>");
+    }
 
     $.when(compResult()).done(function () {
         //

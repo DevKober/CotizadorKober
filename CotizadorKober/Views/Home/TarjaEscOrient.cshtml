@@ -43,6 +43,17 @@
     <div class="divGenericoCentrado">
         <button id="btnBack" type="button" class="btn btn-primary" style="margin-top:10px; margin-bottom:10px;"> <span class="glyphicon glyphicon-triangle-left" aria-hidden="true"></span> Anterior</button>
     </div>
+    <div class="divGenericoCentrado">
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index">Inicio</a></li>
+            <li><a href="/Home/Tarjas/">Tarjas</a></li>
+            <li><a href="/Home/TarjaMedida?tipo=@ViewBag.TipoTarja">Medida</a></li>
+            <li><a href="/Home/TarjaTinas?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida">Tinas</a></li>
+            <li><a href="/Home/TarjaMueble?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&tinas=@ViewBag.Tinas">Mueble</a></li>
+            <li><a href="/Home/TarjaEscurridero?tipo=@ViewBag.TipoTarja&medida=@ViewBag.Medida&mueble=@ViewBag.Mueble&escurridero=@ViewBag.Escurridero">Escurridero</a></li>            
+            <li>Orientación de escurridero</li>
+        </ol>
+    </div>
 </div>
 
 <script>

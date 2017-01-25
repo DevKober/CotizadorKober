@@ -303,7 +303,7 @@ namespace CotizadorKober.Controllers
                     return Json("", JsonRequestBehavior.AllowGet);
                 }
             }            
-        }        
+        }
 
         public JsonResult TarjaResult2(string volumen, string escOrient, string mueble, string escurridero, string tinas, string medida, string tipo)
         {

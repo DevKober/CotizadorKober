@@ -20,7 +20,16 @@
 <script src="~/Content/Keyboard/jqkeyboard-min.js"></script>
 
 <div id="espaciador" style="margin:50px;"></div>
-
+<div class="divGenericoCentrado">
+    <ol class="breadcrumb">
+        <li><a href="/Home/Index">Inicio</a></li>
+        <li><a href="/Home/Mezcladoras">Llaves</a></li>
+        <li><a href="/Home/MezcladoraAlcance?tipo=@ViewBag.TipoMezcladora">Alcance</a></li>
+        <li><a href="/Home/MezcladoraAltura?tipo=@ViewBag.TipoMezcladora&altura=@ViewBag.Altura">Altura</a></li>
+        <li><a href="/Home/MezcladoraAltura?tipo=@ViewBag.TipoMezcladora&altura=@ViewBag.Altura&volumen=@ViewBag.Volumen">Volumen</a></li>
+        <li>Resultados</li>
+    </ol>
+</div>
 <div style="width:300px; float:left; margin-left:2px;">
     <input id="mail" type="text" class="form-control" placeholder="Escriba su dirección de email..." aria-describedby="basic-addon1">
 </div>

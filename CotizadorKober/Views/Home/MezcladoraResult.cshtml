@@ -13,7 +13,17 @@
 <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
 <link href="~/Content/mk.css" rel="stylesheet" />
 
-    <p class="pMk" style="text-align:center; margin-top:100px; margin-bottom:10px; font-size:large;">Opciones disponibles de acuerdo a su selección</p>
+    <p class="pMk" style="text-align:center; margin-top:100px; margin-bottom:10px; font-size:32px;">Opciones disponibles de acuerdo a su selección</p>
+    <div class="divGenericoCentrado">
+        <ol class="breadcrumb">
+            <li><a href="/Home/Index">Inicio</a></li>
+            <li><a href="/Home/Mezcladoras">Llaves</a></li>
+            <li><a href="/Home/MezcladoraAlcance?tipo=@ViewBag.TipoMezcladora">Alcance</a></li>
+            <li><a href="/Home/MezcladoraAltura?tipo=@ViewBag.TipoMezcladora&altura=@ViewBag.Altura">Altura</a></li>
+            <li><a href="/Home/MezcladoraAltura?tipo=@ViewBag.TipoMezcladora&altura=@ViewBag.Altura&volumen=@ViewBag.Volumen">Volumen</a></li>
+            <li>Resultados</li>
+        </ol>
+    </div>
     <div style="margin:4px;">
         <!-- <button id="mailTodo" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Enviar todos los resultados por email</button>        --> 
 
